@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const listining = require("../models/listing");
 const router = express.Router();
-router.get("/index", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         const List = await listining.find();
         console.log("Data Fetched!");
