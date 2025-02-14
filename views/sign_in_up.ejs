@@ -1,0 +1,84 @@
+<% layout("../layout/boilerplate.ejs") %>
+
+<div class="container-fluid d-flex align-items-center justify-content-center min-vh-100 main-container">
+  <!-- Background Slideshow -->
+  <div class="slideshow-container">
+    <div class="slide active" style="background-image: url('/assets/banner1.jpg');"></div>
+    <div class="slide" style="background-image: url('/assets/banner2.jpg');"></div>
+    <div class="slide" style="background-image: url('/assets/banner3.jpg');"></div>
+  </div>
+
+  <div class="row w-100 justify-content-center position-relative">
+    <!-- Form Section -->
+    <div class="col-md-5 d-flex align-items-center justify-content-center">
+      <div class="form-container p-4 rounded">
+        <!-- Sign In Form -->
+        <form action="/login" id="signInForm" method="post">
+          <h3 class="text-center text-light">Welcome Back</h3>
+          <div class="mb-3">
+            <input type="text" class="form-control custom-input" name="username" placeholder="Username" required>
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control custom-input" name="password" placeholder="Password" required>
+          </div>
+          <button type="submit" class="custom-btn w-100">Sign In</button>
+          <p class="toggle-text text-center mt-3 text-light">
+            Don't have an account? 
+            <span class="text-danger fw-bold toggle-link">Sign Up</span>
+          </p>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signUpForm" class="d-none" action="/signUp" method="post">
+          <h3 class="text-center text-light">Create Your Account</h3>
+          <div class="mb-3">
+            <input type="text" class="form-control custom-input" name="username" placeholder="Username" required>
+          </div>
+          <div class="mb-3">
+            <input type="email" class="form-control custom-input" name="email" placeholder="Email" required>
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control custom-input" name="password" placeholder="Password" required>
+          </div>
+          <button type="submit" class="custom-btn w-100">Sign Up</button>
+          <p class="toggle-text text-center mt-3 text-light">
+            Already have an account? 
+            <span class="text-danger fw-bold toggle-link">Sign In</span>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Thoughts Section -->
+    <div class="col-md-5 d-flex align-items-center justify-content-center">
+      <div class="thoughts-container text-center">
+        <h2 class="text-danger">"Traveling – it leaves you speechless, then turns you into a storyteller." – Ibn Battuta</h2>
+        <h2 class="text-danger">Wake up to new experiences, one stay at a time.</h2>
+        <h2 class="text-danger">"Life is short, and the world is wide."</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Toggle between Sign In and Sign Up forms
+  document.querySelectorAll(".toggle-link").forEach(link => {
+    link.style.cursor = "pointer"; // Set cursor pointer
+    link.addEventListener("click", () => {
+      document.getElementById("signInForm").classList.toggle("d-none");
+      document.getElementById("signUpForm").classList.toggle("d-none");
+    });
+  });
+
+  // Background Slideshow Animation
+  let slides = document.querySelectorAll('.slide');
+  let currentSlide = 0;
+
+  function showNextSlide() {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (currentSlide + 1) % slides.length;
+    slides[currentSlide].classList.add('active');
+  }
+
+  setInterval(showNextSlide, 4000); // Change every 4 seconds
+</script>

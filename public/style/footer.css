@@ -1,0 +1,153 @@
+/* Main Footer Styles */
+.modern-footer {
+    background-color: #222;
+    color: #ccc;
+    padding: 50px 0 20px;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3);
+    border-top: 3px solid #600080;
+}
+
+.footer-logo {
+    height: 60px;
+    margin-bottom: 15px;
+    border-radius:100%;
+}
+
+.footer-about {
+    font-size: 0.9rem;
+    color: #bbb;
+    line-height: 1.6;
+}
+
+.learn-more-btn {
+    display: inline-block;
+    color: #600080;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: color 0.3s;
+}
+
+.learn-more-btn:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Footer Links */
+.footer-heading {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: #999;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.footer-link:hover {
+    color: #44015a;
+}
+
+/* Social Media Icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.social-icon {
+    color: #777;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: #420257;
+}
+
+/* Contact Button */
+.footer-contact-btn {
+    display: inline-block;
+    background-color: #600080;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.footer-contact-btn:hover {
+    background-color: #420257;
+    color: #fff;
+    font-size: larger;
+    text-decoration: none;
+
+
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    color: #777;
+    font-size: 0.85rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modern-footer .row {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        text-align: center;
+    }
+
+    .footer-contact-btn {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-logo {
+        height: 50px;
+    }
+
+    .footer-about {
+        font-size: 0.85rem;
+    }
+
+    .footer-heading {
+        font-size: 1rem;
+    }
+}
+.modern-footer {
+    width: 100%;
+    background-color: #222;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+  }

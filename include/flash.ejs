@@ -1,0 +1,23 @@
+<div class="flash-container">
+    <% if (success && success.length > 0) { %>
+      <div class="flash-alert alert success-alert animate-in" role="alert">
+        <span><%= success %></span>
+        <button type="button" class="custom-close-btn" aria-label="Close" onclick="this.parentElement.remove();">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    <% } %>
+  
+    <% if (error && error.length > 0) { %>
+      <div class="flash-alert alert error-alert animate-in" role="alert">
+        <span><%= error %></span>
+        <button type="button" class="custom-close-btn" aria-label="Close" onclick="this.parentElement.remove();">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    <% } %>
+  </div>
+  
+  <!-- Include Font Awesome if not already done -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  

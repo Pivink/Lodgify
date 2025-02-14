@@ -1,0 +1,162 @@
+<% layout("../layout/boilerplate.ejs") %>
+
+    <div class="listing-container">
+        <!-- Left: Image Section -->
+        <div class="listing-image">
+            <img src="<%= idx.image.url %>" alt="<%= idx.title %>">
+            <div class="price-overlay">₹<%= idx.price.toLocaleString() %> / night</div>
+        </div>
+
+        <!-- Right: Card with Details & Booking Section -->
+        <div class="listing-card">
+            <div class="listing-details">
+                <h1 class="listing-title">
+                    <%= idx.title %>
+                </h1>
+                <p class="listing-location">
+                    <%= idx.location %>, <%= idx.country %>
+                </p>
+                <p class="listing-description">
+                    <%= idx.description %>
+                </p>
+
+                <!-- Host Details -->
+                <div class="host-info">
+                    <p>Hosted by <span class="host-name">
+                            <%= user_name %>
+                        </span></p>
+                </div>
+            </div>
+
+            <!-- Booking Box (Pinned to Bottom) -->
+            <div class="booking-box">
+                <p class="booking-price">₹<%= idx.price.toLocaleString() %> / night</p>
+                <form action="/booking/<%= idx._id%>" method="get">
+                    <button class="reserve-btn">Reserve</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <section class="mt-5 review-section review">
+        <h3 class="fw-bold mb-4 review-heading">
+          <span>Reviews</span>
+          <i class="fas fa-chevron-down toggle-arrow"></i>
+        </h3>
+        <div class="review-content" style="display: none;">
+          <% if (reviews.length > 0) { %>
+            <div class="row">
+              <% reviews.forEach(review => { %>
+                <div class="col-md-6 mb-4">
+                  <div class="review-card p-3">
+                    <div class="d-flex align-items-center mb-3">
+                      <div class="review-avatar">
+                        <% if (review.from && review.from.username) { %>
+                          <span class="avatar-text"><%= review.from.username.charAt(0).toUpperCase() %></span>
+                        <% } else { %>
+                          <i class="bi bi-person avatar-icon"></i>
+                        <% } %>
+                      </div>
+                      <div class="ms-3 flex-grow-1">
+                        <p class="review-username fw-bold mb-0"><%= review.from.username %></p>
+                        <div class="review-rating">
+                          <% for (let i = 1; i <= 5; i++) { %>
+                            <i class="<%= i <= review.rating ? 'fas fa-star filled-star' : 'far fa-star empty-star' %>"></i>
+                          <% } %>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="review-comment"><%= review.comment %></p>
+                    <p class="review-date text-muted">Reviewed on: <%= new Date(review.createdAt).toLocaleDateString() %></p>
+                  </div>
+                </div>
+              <% }); %>
+            </div>
+          <% } else { %>
+            <p class="text-muted">No reviews yet. Be the first to leave one!</p>
+          <% } %>
+        </div>
+      </section>
+      
+
+
+    <section class="mt-5 review rev-down">
+        <div class="mt-4">
+            <h4 class="fw-bold mb-3 text-center" style="color: #ff385c;">Write Your Review</h4>
+            <form action="/review/<%= idx._id %>" method="POST" class="p-4 shadow-sm rounded"
+                style="background: #fff; border: 1px solid #ddd; border-radius: 15px;" novalidate>
+
+                <!-- User Icon & Prompt -->
+                <div class="text-center mb-4">
+                    <i class="fas fa-pen-nib" style="font-size: 2rem; color: #ff385c;"></i>
+                    <p style="color: #555; font-size: 14px;">Your feedback helps others make better
+                        decisions!</p>
+                </div>
+
+                <!-- Rating Stars -->
+                <div class="mb-4 text-center">
+                    <label for="rating" class="form-label fw-bold" style="font-size: 16px; color: #333;">
+                        Rate Your Experience
+                    </label>
+                    <div id="star-container">
+                        <% for (let i=1; i <=5; i++) { %>
+                            <i class="fas fa-star star-input" data-value="<%= i %>"
+                                style="color: #ddd; font-size: 24px; cursor: pointer;"></i>
+                            <% } %>
+                    </div>
+                    <input type="hidden" name="rating" id="rating" value="0">
+                    <div class="invalid-feedback text-center">Please select a rating between 1 and 5.
+                    </div>
+                </div>
+
+                <!-- Comment Field -->
+                <div class="mb-4">
+                    <label for="comment" class="form-label fw-bold" style="color: #333;">Your
+                        Review</label>
+                    <textarea id="comment" name="comment" class="form-control shadow-sm" rows="4"
+                        placeholder="Share your experience here..." required style="border-radius: 10px;"></textarea>
+                    <div class="invalid-feedback">Your review cannot be empty. Please share your
+                        thoughts!
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <% if(currUser){ %>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-lg shadow-sm rev-sub">
+                            <i class="fas fa-paper-plane"></i> Submit Review
+                        </button>
+                    </div>
+                    <% } else { %>
+                        <div class="text-center submit-notuser">
+                            <a href="/signIn" style="text-decoration: none;">
+                                <h5 style="color: #ff385c; font-weight: bold;">
+                                    You have to be logged in to leave a review!
+                                </h5>
+                            </a>
+                        </div>
+                        <% } %>
+
+            </form>
+        </div>
+    </section>
+    <script>
+        const reviewHeading = document.querySelector('.review-heading');
+        const reviewContent = document.querySelector('.review-content');
+        const toggleArrow = document.querySelector('.toggle-arrow');
+      
+        reviewHeading.addEventListener('click', () => {
+          if (reviewContent.style.display === 'none' || !reviewContent.style.display) {
+            reviewContent.style.display = 'block';
+            toggleArrow.style.transform = 'rotate(180deg)';
+            reviewContent.classList.remove('hide');
+            reviewContent.classList.add('show');
+          } else {
+            reviewContent.style.display = 'none';
+            toggleArrow.style.transform = 'rotate(0deg)';
+            reviewContent.classList.remove('show');
+            reviewContent.classList.add('hide');
+          }
+        });
+      </script>
+      

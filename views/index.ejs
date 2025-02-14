@@ -1,0 +1,113 @@
+<% layout("../layout/boilerplate.ejs") %>
+
+    <div class="container">
+        <!-- Styled Search Filters -->
+        <div class="search-bar mb-4 d-flex justify-content-center align-items-center">
+            <div class="search-container">
+                <div class="search-item">
+                    <i class="fas fa-globe search-icon"></i>
+                    <select id="countryFilter" class="search-dropdown">
+                        <option value="">Country</option>
+                        <% idx.forEach(l=> { %>
+                            <option value="<%= l.country %>">
+                                <%= l.country %>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
+
+                <div class="search-item">
+                    <i class="fas fa-map-marker-alt search-icon"></i>
+                    <select id="locationFilter" class="search-dropdown">
+                        <option value="">Location</option>
+                        <% idx.forEach(l=> { %>
+                            <option value="<%= l.location %>">
+                                <%= l.location %>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
+
+                <div class="search-item">
+                    <i class="fas fa-tag search-icon"></i>
+                    <select id="priceFilter" class="search-dropdown">
+                        <option value="">Price Range</option>
+                        <option value="low">Below ₹5000</option>
+                        <option value="mid">₹5000 - ₹10000</option>
+                        <option value="high">Above ₹10000</option>
+                    </select>
+                </div>
+
+                <button class="search-btn" onclick="filterListings()">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Listings -->
+        <div class="row" id="listingsContainer">
+            <% for (let l of idx) { %>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4 listing" data-country="<%= l.country.toLowerCase() %>"
+                    data-price="<%= l.price %>" data-location="<%= l.location.toLowerCase() %>">
+                    <a href="/index/<%= l._id %>" class="text-decoration-none">
+                        <div class="custom-card">
+                            <img src="<%= l.image.url %>" class="card-img" alt="<%= l.title %>">
+                            <div class="card-text-overlay">
+                                <h5 class="card-title">
+                                    <%= l.title %>
+                                </h5>
+                                <p class="card-price">₹<%= l.price %> / night</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <% } %>
+        </div>
+    </div>
+
+    <div id="noResultsMessage" class="no-results" style="display: none;">
+        <h4 class="text-center">No results found. Try adjusting your search filters.</h4>
+    </div>
+    <script>
+        function filterListings() {
+            const country = document.getElementById('countryFilter').value.toLowerCase();
+            const location = document.getElementById('locationFilter').value.toLowerCase();
+            const price = document.getElementById('priceFilter').value;
+            const listings = document.querySelectorAll('.listing');
+
+            let hasResults = false;
+
+            listings.forEach(listing => {
+                const listingCountry = listing.getAttribute('data-country').toLowerCase();
+                const listingLocation = listing.getAttribute('data-location').toLowerCase();
+                const listingPrice = parseInt(listing.getAttribute('data-price'));
+
+                let show = true;
+
+                // Check filters
+                if (country && listingCountry !== country) show = false;
+                if (location && listingLocation !== location) show = false;
+                if (price === 'low' && listingPrice >= 5000) show = false;
+                if (price === 'mid' && (listingPrice < 5000 || listingPrice > 10000)) show = false;
+                if (price === 'high' && listingPrice <= 10000) show = false;
+
+                // Display or hide listing
+                if (show) {
+                    listing.style.display = 'block';
+                    hasResults = true;
+                } else {
+                    listing.style.display = 'none';
+                }
+            });
+
+            // Display no results message
+            const noResultMsg = document.getElementById('noResultsMessage');
+            if (hasResults) {
+                noResultMsg.style.display = 'none';
+            } else {
+                noResultMsg.style.display = 'block';
+            }
+        }
+
+    </script>

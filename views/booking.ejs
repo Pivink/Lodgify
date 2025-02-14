@@ -1,0 +1,184 @@
+<% layout("../layout/boilerplate.ejs") %>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg p-4 animate__animated animate__fadeInUp">
+                <div class="row g-4">
+                    <!-- Booking Form Section -->
+                    <div class="col-lg-6">
+                        <h4 class="fw-bold">Confirm and Pay</h4>
+                        <form action="/booking" method="POST" id="bookingForm">
+                            <input type="hidden" name="userId" value="<%= currUser._id %>">
+                            <input type="hidden" name="listingId" value="<%= idx._id %>">
+                            <input type="hidden" id="price" name="price" value="<%= idx.price %>">
+                            <input type="hidden" id="pricePerNight" name="pricePerNight" value="">
+
+                            <!-- Full Name Input -->
+                            <div class="mb-3">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" name="fullName" class="form-control" required value="<%= currUser.username %>">
+                                <div class="invalid-feedback">Please enter your full name.</div>
+                            </div>
+
+                            <!-- Phone Number Input -->
+                            <div class="mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <div class="input-group">
+                                    <select class="form-select" name="countryCode" required>
+                                        <option value="+91" selected>🇮🇳 India (+91)</option>
+                                        <option value="+1">🇺🇸 USA (+1)</option>
+                                        <option value="+44">🇬🇧 UK (+44)</option>
+                                    </select>
+                                    <input type="text" name="phone" class="form-control" required placeholder="Enter phone number">
+                                    <div class="invalid-feedback">Please enter a valid phone number.</div>
+                                </div>
+                            </div>
+
+                            <!-- Check-in Date -->
+                            <div class="mb-3">
+                                <label class="form-label">Check-in Date</label>
+                                <input type="date" id="checkIn" name="checkIn" class="form-control" required>
+                                <div class="invalid-feedback">Please select a check-in date.</div>
+                            </div>
+
+                            <!-- Check-out Date -->
+                            <div class="mb-3">
+                                <label class="form-label">Check-out Date</label>
+                                <input type="date" id="checkOut" name="checkOut" class="form-control" required>
+                                <div class="invalid-feedback">Please select a check-out date.</div>
+                            </div>
+
+                            <hr>
+                            <div class="p-3 bg-light rounded">
+                                <h5 class="fw-bold">Price Details</h5>
+                                <div class="d-flex justify-content-between">
+                                    <span>Price per Night:</span>
+                                    <span class="fw-bold">₹<%= idx.price.toLocaleString() %></span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Total Nights:</span>
+                                    <span class="fw-bold" id="numNights">0</span>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <span class="fw-bold">Total Price:</span>
+                                    <span class="fw-bold text-danger" id="totalPrice">₹0</span>
+                                </div>
+                                <button class="btn btn-danger w-100 mt-3" id="bookNowBtn" onclick="initiatePayment()">Continue to Payment</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Image & Details Section -->
+                    <div class="col-lg-6 d-flex align-items-center">
+                        <div class="card border-0 shadow overflow-hidden animate__animated animate__fadeInRight w-100">
+                            <div class="img-container">
+                                <img src="<%= idx.image.url%>" alt="<%= idx.title %>" class="img-fluid rounded">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="fw-bold"><%= idx.title %></h3>
+                                <p class="text-muted"><i class="bi bi-geo-alt"></i> <%= idx.location %>, <%= idx.country %></p>
+                                <p class="fs-5"><%= idx.description %></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="custom-alert" id="customAlert">
+    <p id="alertMessage"></p>
+    <button class="alert-btn" onclick="closeAlert()">OK</button>
+</div>
+
+
+<!-- Razorpay Checkout Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    document.getElementById("bookNowBtn").addEventListener("click", function (event) {
+        event.preventDefault(); // Stop the form from auto-submitting
+
+        const amount = document.getElementById('pricePerNight').value * 100; // Convert to paisa
+
+        fetch('/createOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ amount })
+        })
+        .then(res => res.json())
+        .then(data => {
+            var options = {
+                "key": "<%= key %>", 
+                "amount": data.amount,
+                "currency": data.currency,
+                "name": "Lodgify Booking",
+                "description": "Complete your payment",
+                "order_id": data.id,
+                "handler": function (response) {
+                    // Payment Success Handler
+                    fetch("/payment/verify", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            ...response,
+                            bookingData: {
+                                userId: document.querySelector('input[name="userId"]').value,
+                                listingId: document.querySelector('input[name="listingId"]').value,
+                                price: document.querySelector('input[name="price"]').value,
+                                pricePerNight: document.querySelector('input[name="pricePerNight"]').value,
+                                fullName: document.querySelector('input[name="fullName"]').value,
+                                countryCode: document.querySelector('select[name="countryCode"]').value,
+                                phone: document.querySelector('input[name="phone"]').value,
+                                checkIn: document.querySelector('input[name="checkIn"]').value,
+                                checkOut: document.querySelector('input[name="checkOut"]').value
+                            }
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            showAlert("Payment Successful");
+                         } else {
+                            alert("Payment Verification Failed");
+                        }
+                    }).catch(err => console.error(err));
+                },
+                "modal": {
+                    "ondismiss": function () {
+                        showAlert("Payment Cancelled");
+                         // Redirect to home page on cancel
+                    }
+                },
+                "prefill": {
+                    "name": "<%= currUser.username %>",
+                    "email": "<%= currUser.email %>"
+                },
+                "theme": {
+                    "color": "#ff385c"
+                }
+            };
+
+            var rzp1 = new Razorpay(options);
+            rzp1.open(); // Open Razorpay payment window
+        })
+        .catch(err => console.error(err));
+    });
+    // Function to show the custom alert
+function showAlert(message) {
+    document.getElementById('alertMessage').textContent = message;
+    document.getElementById('customAlert').style.display = 'block';
+}
+
+// Function to close the custom alert
+function closeAlert() {
+    document.getElementById('customAlert').style.display = 'none';
+    window.location.href = "/index";
+}
+
+</script>

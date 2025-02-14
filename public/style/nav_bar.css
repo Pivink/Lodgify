@@ -1,0 +1,177 @@
+/* ===== General Navbar Styling ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(255, 255, 255); /* Pure white background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+
+}
+
+/* ===== Navigation Links Styling ===== */
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    background-color: #600080; /* Purple */
+    color: white;
+}
+
+/* ===== User Dropdown Styling ===== */
+.navbar-user {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.user-icon-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.user-icon-btn:hover {
+    color: #600080; /* Purple */
+    transform: scale(1.1); /* Subtle zoom effect */
+}
+
+.user-dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 3rem;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    flex-direction: column;
+    min-width: 180px;
+}
+
+.dropdown-menu .dropdown-item {
+    padding: 0.7rem 1rem;
+    text-decoration: none;
+    color: #333;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: #600080; /* Purple */
+    color: white;
+}
+
+.user-dropdown:hover .dropdown-menu,
+.user-dropdown:focus-within .dropdown-menu {
+    display: flex;
+}
+
+/* ===== Login Button Styling ===== */
+.login-btn {
+    font-size: 1rem;
+    color: #fff;
+    background-color: #600080; /* Purple */
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.login-btn:hover {
+    background-color: #480060; /* Darker purple for hover */
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 992px) {
+    .navbar-nav {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .navbar-user {
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        width: 100%;
+        padding: 1rem 0;
+    }
+
+    .navbar-nav.active {
+        display: flex;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+    }
+
+    .user-icon-btn {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-link {
+        font-size: 0.8rem;
+    }
+
+    .search-bar input {
+        font-size: 0.9rem;
+    }
+
+    .search-bar button {
+        font-size: 0.9rem;
+    }
+}
+.navbar .login-btn {
+    font-size: 1rem;
+    color: #fff !important;
+    background-color: #600080 !important; /* Purple */
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar .login-btn:hover {
+    background-color: #480060 !important; /* Darker purple for hover */
+}

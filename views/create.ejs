@@ -1,0 +1,94 @@
+<% layout("../layout/boilerplate.ejs") %>
+
+    <div class="container my-5 py-4 px-3 shadow-sm rounded" style="background-color: #f9f9f9; border: 1px solid #ddd;">
+        <h2 class="mb-4 text-center fw-bold" style="color: #ff385c;">Create Your Listing</h2>
+
+        <form action="http://localhost:3000/listingProfile" method="post" class="row g-4 "
+            style="max-width: 800px; margin: auto;" novalidate enctype="multipart/form-data">
+
+            <!-- Title -->
+            <div class="col-md-6">
+                <label for="title" class="form-label fw-bold" style="color: #555;">Title</label>
+                <input type="text" id="title" name="title" class="form-control shadow-sm" placeholder="Enter title"
+                    required>
+                <div class="valid-feedback">
+                    Great! The title looks perfect.
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid title.
+                </div>
+            </div>
+
+            <!-- Image URL -->
+            <div class="col-md-6">
+                <label for="image" class="form-label fw-bold" style="color: #555;">Upload Image</label>
+                <input type="file" id="image" name="image" class="form-control shadow-sm" placeholder="Enter image URL">
+                <div class="valid-feedback">
+                    Awesome! The image URL is good to go.
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid image URL.
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="col-12">
+                <label for="description" class="form-label fw-bold" style="color: #555;">Description</label>
+                <textarea id="description" name="description" class="form-control shadow-sm" rows="4"
+                    placeholder="Enter description" required style="border-radius: 10px;"></textarea>
+                <div class="valid-feedback">
+                    Fantastic! The description is well-written.
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a description.
+                </div>
+            </div>
+
+            <!-- Price -->
+            <div class="col-md-6">
+                <label for="price" class="form-label fw-bold" style="color: #555;">Price</label>
+                <input id="price" name="price" type="number" class="form-control shadow-sm" placeholder="Enter price"
+                    required>
+                <div class="valid-feedback">
+                    Perfect! The price is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid price.
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="col-md-6">
+                <label for="location" class="form-label fw-bold" style="color: #555;">Location</label>
+                <input type="text" id="location" name="location" class="form-control shadow-sm"
+                    placeholder="Enter location" required>
+                <div class="valid-feedback">
+                    Great! The location is acceptable.
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a location.
+                </div>
+            </div>
+
+            <!-- Country -->
+            <div class="col-md-6">
+                <label for="country" class="form-label fw-bold" style="color: #555;">Country</label>
+                <input type="text" id="country" name="country" class="form-control shadow-sm"
+                    placeholder="Enter country" required>
+                <div class="valid-feedback">
+                    Nice! The country name is correct.
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a country.
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-lg shadow-sm"
+                    style="background-color: #ff385c; color: white; font-weight: bold; border-radius: 25px; padding: 0.8rem 2rem;">
+                    Create Profile
+                </button>
+            </div>
+        </form>
+    </div>

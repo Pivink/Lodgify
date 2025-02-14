@@ -1,0 +1,190 @@
+<% layout("../layout/boilerplate") %>
+
+<div class="contact-container">
+    <div class="contact-content">
+        <!-- Left Side - Contact Form -->
+        <div class="contact-form-wrapper">
+            <h1>Get in Touch</h1>
+            <p>We'd love to hear from you! Fill out the form below.</p>
+
+            <form id="contact-form">
+                <div class="input-box">
+                    <input type="text" id="name" name="name" required>
+                    <label>Name</label>
+                </div>
+                <div class="input-box">
+                    <input type="email" id="email" name="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="subject" name="subject" required>
+                    <label>Subject</label>
+                </div>
+                <div class="input-box textarea-box">
+                    <textarea id="message" name="message" required></textarea>
+                    <label>Message</label>
+                </div>
+                <button type="submit" class="send-btn">Send Message</button>
+            </form>
+            <p id="status-message"></p>
+        </div>
+
+        <!-- Right Side - Image -->
+        <div class="contact-image">
+            <img src="/assets/contact.jpg" alt="Contact Image">
+        </div>
+    </div>
+</div>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    (function() {
+        emailjs.init("oPZwqKv6RKVDb69f_"); // Your EmailJS Public Key
+    })();
+
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        emailjs.sendForm(
+            'service_u8pmf6e', // Your EmailJS Service ID
+            'template_l0z81v4', // Your EmailJS Template ID
+            this
+        ).then(function(response) {
+            document.getElementById("status-message").textContent = "Message sent successfully!";
+            document.getElementById("status-message").classList.add("success");
+            document.getElementById("contact-form").reset();
+        }, function(error) {
+            document.getElementById("status-message").textContent = "Failed to send message. Please try again.";
+            document.getElementById("status-message").classList.add("error");
+        });
+    });
+</script>
+
+<style>
+    /* Full Container */
+    .contact-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: 100vh; */
+        padding: 10px;
+    }
+
+    /* Two-column layout */
+    .contact-content {
+        display: flex;
+        flex-wrap: wrap;
+        width: 80%;
+        max-width: 1000px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Left - Contact Form */
+    .contact-form-wrapper {
+        flex: 1;
+        padding: 30px;
+        text-align: center;
+        color: #fff;
+    }
+
+    .input-box {
+        position: relative;
+        margin: 20px 0;
+    }
+
+    .input-box input,
+    .input-box textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid purple;
+        outline: none;
+        color: white;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    .input-box label {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.7);
+        transition: 0.3s;
+    }
+
+    .input-box input:focus ~ label,
+    .input-box textarea:focus ~ label,
+    .input-box input:valid ~ label,
+    .input-box textarea:valid ~ label {
+        top: -12px;
+        font-size: 14px;
+        color: purple;
+    }
+
+    .textarea-box textarea {
+        resize: none;
+        height: 80px;
+    }
+
+    .send-btn {
+        width: 100%;
+        padding: 10px;
+        background: purple;
+        border: none;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+
+    .send-btn:hover {
+        background: purple;
+    }
+
+    #status-message {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+
+    .success {
+        color: #4caf50;
+    }
+
+    .error {
+        color: purple;
+    }
+
+    /* Right - Image */
+    .contact-image {
+        flex: 1;
+        background: #000;
+    }
+
+    .contact-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .contact-content {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .contact-form-wrapper {
+            padding: 20px;
+        }
+
+        .contact-image img {
+            height: 300px;
+        }
+    }
+</style>

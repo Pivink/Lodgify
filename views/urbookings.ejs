@@ -1,0 +1,189 @@
+<% layout("../layout/boilerplate.ejs") %>
+
+<div class="container py-5">
+    <h2 class="text-center mb-4" style="color: #600080;">Your Bookings</h2>
+
+    <!-- If bookings exist -->
+    <% if (bookings.length > 0) { %>
+        <div class="row">
+            <% bookings.forEach(booking => { %>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <div class="booking-card shadow-lg">
+                        <h4 class="booking-title"><i class="fas fa-bed"></i> Booking Details</h4>
+                        <p><strong>Name:</strong> <%= booking.name %></p>
+                        <p><strong>Phone:</strong> <%= booking.countryCode %> <%= booking.phone %></p>
+                        <p><strong>Check-In:</strong> <%= new Date(booking.checkIn).toLocaleDateString() %></p>
+                        <p><strong>Check-Out:</strong> <%= new Date(booking.checkOut).toLocaleDateString() %></p>
+                        <p><strong>Total Price:</strong> ₹<%= booking.pricePerNight.toLocaleString() %></p>
+                        <button class="cancel-booking-btn" onclick="cancelBooking('<%= booking._id %>')">Cancel Booking</button>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <div class="no-bookings text-center">
+            <i class="fas fa-frown fa-4x"></i>
+            <h4>No bookings found!</h4>
+            <p>Looks like you haven't made any bookings yet.</p>
+            <a href="/index" class="btn btn-primary">Browse Listings</a>
+        </div>
+    <% } %>
+</div>
+
+<!-- JavaScript for Cancel Booking -->
+<script>
+    function cancelBooking(bookingId) {
+        if (confirm("Are you sure you want to cancel this booking?")) {
+            fetch(`/bookings/cancel/${bookingId}`, {
+                method: "DELETE"
+            })
+            .then(res => {
+                if (res.ok) {
+                    alert("Booking canceled successfully!");
+                    location.reload();
+                } else {
+                    alert("Failed to cancel booking.");
+                }
+            })
+            .catch(err => console.error(err));
+        }
+    }
+</script>
+
+<style>
+
+    .booking-card {
+        background-color: #600080;
+        color: #fff;
+        border-radius: 15px;
+        padding: 20px;
+        transition: transform 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .booking-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .booking-title {
+        color: #ffccff;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .cancel-booking-btn {
+        background-color: #ff6666;
+        color: #fff;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 50px;
+        transition: background 0.3s;
+        cursor: pointer;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .cancel-booking-btn:hover {
+        background-color: #ff4d4d;
+    }
+
+    .no-bookings {
+        color: #600080;
+        padding: 50px;
+    }
+
+    .no-bookings i {
+        color: #600080;
+        margin-bottom: 10px;
+    }
+
+    .no-bookings a.btn-primary {
+        background-color: #600080;
+        border: none;
+    }
+
+    .no-bookings a.btn-primary:hover {
+        background-color: #4d0066;
+    }
+    /* Custom Confirm Box Styling */
+    .custom-confirm-box {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .confirm-content {
+        background: #600080;
+        color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 0.3s ease;
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .confirm-content h4 {
+        color: #ffccff;
+        margin-bottom: 10px;
+    }
+
+    .confirm-content p {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .confirm-buttons {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .confirm-btn, .cancel-btn {
+        background: #ff4d4d;
+        color: #fff;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-weight: bold;
+    }
+
+    .confirm-btn {
+        background: #ff6666;
+    }
+
+    .confirm-btn:hover {
+        background: #ff4d4d;
+    }
+
+    .cancel-btn {
+        background: #aaa;
+    }
+
+    .cancel-btn:hover {
+        background: #888;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+</style>

@@ -1,0 +1,242 @@
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.profile-page {
+    padding: 20px;
+}
+
+.add-listing-container {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.add-listing-btn {
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+/* Grid Layout */
+.listings-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .listings-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .listings-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .listings-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* Listing Card */
+.listing-card {
+    position: relative;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.listing-image-container {
+    position: relative;
+}
+
+.listing-image-container img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.options-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.options-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 10px;
+    background: rgb(8, 8, 8, 0.4);
+    border-radius: 5px;
+    padding: 10px;
+    width: 120px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.options-menu form,
+.options-menu button {
+    width: 100%;
+    margin: 5px 0;
+}
+
+.edit-btn,
+.delete-btn {
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.listing-title {
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.no-listings {
+    text-align: center;
+    font-size: 18px;
+    color: gray;
+}
+
+/* Airbnb-Style Delete Confirmation Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.cancel-btn {
+    background: #ccc;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-btn {
+    background: red;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h1 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.profile-info p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.add-listing-container {
+    margin-top: 10px;
+}
+
+.add-listing-btn {
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.profile-image {
+    flex-shrink: 0;
+    margin-left: 20px;
+}
+
+.profile-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.your-listing {
+    display: none;
+    transition: all 0.3s ease;
+  }
+  
+  .your-listing.show {
+    display: block;
+  }
+  
+  .toggle-arrow {
+    transition: transform 0.3s ease;
+  }
+  
+  .toggle-arrow.rotate {
+    transform: rotate(180deg);
+  }
+  
