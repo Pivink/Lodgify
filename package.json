@@ -1,4 +1,6 @@
 {
+  engine:{
+    "node":"v20.11.1"},
   "name": "airbnb",
   "version": "1.0.0",
   "description": "",
@@ -22,7 +24,6 @@
     "express-session": "^1.18.1",
     "method-override": "^3.0.0",
     "mongoose": "^8.9.5",
-    "moongose": "^1.0.0",
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "passport": "^0.7.0",
