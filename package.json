@@ -1,6 +1,4 @@
-{
-  engine:{
-    "node":"v20.11.1"},
+ {
   "name": "airbnb",
   "version": "1.0.0",
   "description": "",
@@ -13,6 +11,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=20.11.1"
+  },
   "dependencies": {
     "body-parser": "^1.20.3",
     "cloudinary": "^1.41.3",
@@ -33,3 +34,4 @@
     "razorpay": "^2.9.5"
   }
 }
+
