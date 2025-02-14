@@ -109,10 +109,7 @@ app.use((req, res, next) => {
 // =======================
 // Routes
 // =======================
-// Home Route
-app.get("/", (req, res) => {
-    res.send("Home Page!");
-});
+ 
 
 // Test Listening Route
 app.get("/demo", async (req, res) => {
@@ -152,7 +149,7 @@ app.use((req, res, next) => {
 
 
 // Route Definitions
-app.get("/index", idx);
+app.get("/", idx);
 app.get("/index/create", checkAuth, nw);
 app.get("/index/:id", shw);
 app.post("/listingProfile", checkAuth, prf);
