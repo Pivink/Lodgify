@@ -17,7 +17,7 @@ router.delete("/index/:id", saveRedirectUrl,async (req, res, next) => {
     try {
         await Listing.deleteOne({_id:id});
         req.flash("success","Listing Deleted!");
-        let redirectPath =`/profile/${req.user._id}` || "/index";
+        let redirectPath =`/profile/${req.user._id}` || "/";
         res.redirect(redirectPath);
     } catch (err) {
         console.log(err);
