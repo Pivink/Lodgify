@@ -17,7 +17,7 @@
             .then(data => {
                 if (data.success) {
                     alert("Payment Successful");
-                    window.location.href = "/index";
+                    window.location.href = "/";
                 } else {
                     alert("Payment Verification Failed");
                 }
@@ -26,7 +26,7 @@
         "modal": {
             "ondismiss": function () {
                 alert("Payment Cancelled");
-                window.location.href = "/index"; // Redirect to home page
+                window.location.href = "/"; // Redirect to home page
             }
         }
     };
