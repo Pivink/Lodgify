@@ -23,7 +23,7 @@ router.post("/review/:id", saveRedirectUrl,async (req, res) => {  // ✅ Added '
     } catch (err) {
         console.log(err);
         req.flash("error", "Review not added!");
-        let redirectPath = `/index/${req.params.id}` || "/index";
+        let redirectPath = `/index/${req.params.id}` || "/";
         res.redirect(redirectPath);
     }
 });
