@@ -32,7 +32,7 @@ routes.post("/listingProfile", upload.single("image"), async (req, res, next) =>
         // console.log(newListing);
         console.log("current user :---",req.user);
         req.flash("success", "New Listing Created!");
-        let redirectPath =`/profile/${req.user._id}` || "/index";
+        let redirectPath =`/profile/${req.user._id}` || "/";
         res.redirect(redirectPath);
     } catch (err) {
         console.error("Error creating listing:", err);
