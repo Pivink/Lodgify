@@ -18,6 +18,6 @@ router.put("/:id/edit", async (req, res) => {
 
     console.log(req.body)
     await listining.findByIdAndUpdate(id,{...req.body});
-    res.redirect("/index");
+    res.redirect("/");
 })
 module.exports = router;
