@@ -12,7 +12,7 @@ router.get("/index/:id", async(req,res)=>{
         const l=await listining.findById(id);
         if(!l){
             req.flash("error","Listing not available!");
-            return res.redirect("/index");
+            return res.redirect("/");
         }
         const Listing=await listining.findById(id).populate('owner');
         console.log(Listing);
