@@ -33,7 +33,7 @@ router.post("/signUp", async (req, res, next) => {
                 return next(err);
             }
             req.flash("success", "Account created successfully!");
-            res.redirect("/index");  // Redirect to home after signup
+            res.redirect("/");  // Redirect to home after signup
         });
     } catch (err) {
         console.log(err);
@@ -60,7 +60,7 @@ router.post("/login", saveRedirectUrl, passport.authenticate("local", {
             req.session.pendingReview = null;
         }
         console.log(res.locals.redirectUrl);
-        let redirectPath = res.locals.redirectUrl || "/index";
+        let redirectPath = res.locals.redirectUrl || "/";
         res.redirect(redirectPath);
     } catch (err) {
         console.log(err);
@@ -77,7 +77,7 @@ router.get("/logout", (req, res, next) => {
             return next(err);
         }
         req.flash("success", "Logged out successfully");
-        res.redirect("/index");
+        res.redirect("/");
     });
 });
 
