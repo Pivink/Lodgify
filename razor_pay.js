@@ -6,7 +6,7 @@ console.log("RAZORPAY_KEY_SECRET:", process.env.RAZORPAY_KEY_SECRET || "MISSING_
 
 const razorpay = new Razorpay({
   key_id: "rzp_test_eThLGW3Me5FJvr",
-  key_secret: process.env.RAZORPAY_KEY_SECRET
+  key_secret: "BRKMFSlLiA1JfAc1IUvo0C2e"
 });
 
 module.exports = razorpay;
